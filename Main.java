@@ -1,5 +1,7 @@
 public class Main {
     public static void main(String [] args) {
+        Game g = new Game();
+        g.play();
         
         Coin penny = new Coin();
         System.out.println(penny);
