@@ -1,5 +1,32 @@
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+
 public class Main {
-    public static void main(String [] args) {
+    public static void main(String [] args) throws FileNotFoundException {
+        File file = new File("flips.txt");
+        Scanner s = new Scanner(file);
+        int heads = 0;
+        int tails = 0;
+
+        while (s.hasNext()) {
+            if (s.next().equals("heads")) heads++;
+            else tails++;
+        }
+
+        System.out.println("Heads: " + heads);
+        System.out.println("Tails: " + tails);
+        System.out.println(heads + tails);
+
+        double se = standardError(0.5, 97);
+        System.out.println(se);
+
+        double pHat = (double) tails / (heads + tails);
+        System.out.println(pHat);
+
+        double z = (pHat - 0.5) / se;
+        System.out.println(z);
+        
         Game g = new Game();
         g.play();
         
@@ -25,5 +52,9 @@ public class Main {
         Player maxArk = new Player(100);
         maxArk.flip(penny, "tails", 50);
         System.out.println(maxArk.getBalance());  
+    }
+
+    public static double standardError(double p, int sample) {
+        return Math.sqrt((p * (1 - p)) / sample);
     }
 }
