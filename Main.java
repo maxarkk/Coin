@@ -26,6 +26,10 @@ public class Main {
 
         double z = (pHat - 0.5) / se;
         System.out.println(z);
+
+        System.out.println(2 * pHat -1);
+
+        System.out.println(simulate(97, "tails", pHat, 2 * pHat - 1));
         
         Game g = new Game();
         g.play();
@@ -56,5 +60,15 @@ public class Main {
 
     public static double standardError(double p, int sample) {
         return Math.sqrt((p * (1 - p)) / sample);
+    }
+
+    public static int simulate(int flips, String guess, double tails, double risk) {
+        Player p = new Player(100);
+        Coin c = new Coin(tails);
+        while (flips > 0) {
+            p.flip(c, guess, (int)(risk * p.getBalance() + 0.5));
+            flips--;
+        }
+        return p.getBalance();
     }
 }
